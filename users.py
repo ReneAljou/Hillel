@@ -10,24 +10,6 @@ code.visualstudio.com - домен
 /docs/supporting/faq - путь (route)
 """
 
-articles = [
-	{
-		'id': 1,
-		'title': 'Article 1',
-		'description': 'Description 1',
-	},
-	{
-		'id': 2,
-		'title': 'Article 2',
-		'description': 'Description 2',
-	},
-	{
-		'id': 3,
-		'title': 'Article 3',
-		'description': 'Description 3',
-	},
-]
-
 
 @app.route('/')
 def home_page():
