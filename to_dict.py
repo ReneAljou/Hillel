@@ -1,18 +1,10 @@
-list = ["dog", "cat", "wolf", "elephant", "lion"]
+def to_dict(lst):
+    y = lst
+    dict = {}
+    for i in y:
+        dict = {i: i}
+        print(dict)
 
-element_1 = list[0]
-element_2 = list[1]
-element_3 = list[2]
-element_4 = list[3]
-element_5 = list[4]
 
-dict = {
+to_dict(['1', '2', '3', '4'])
 
-    element_1: element_1,
-    element_2: element_2,
-    element_3: element_3,
-    element_4: element_4,
-    element_5: element_5
-}
-
-print(dict)
