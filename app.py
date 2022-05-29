@@ -3,47 +3,61 @@ from flask import Flask, request
 
 
 app = Flask(__name__)
-users = []
+projects = []
 
 
-@app.route('/user', methods=['GET'])
-def get_user():
-	return flask.jsonify(users)
+@app.route('/project', methods=['GET'])
+def get_project():
+	return flask.jsonify(projects)
 
 
-@app.route('/user', methods=['POST'])
-def create_user():
+@app.route('/project', methods=['POST'])
+def create_project():
 	data = request.json
-	if 'name' in data and 'lastname' in data and 'password' in data and 'email' in data:
-		email = data['email']
-		if len(list(filter(lambda x: x['email'] == email, users))) != 0:
-			return flask.jsonify({
-					'code': 2,
-					'message': 'Пользователь уже есть в системе'
-			})
-		users.append(data)
+	if 'name' in data and 'description' in data and 'deadline' in data and 'creaturedate' in data:
 		return flask.jsonify({
 			'code': 0,
-			'message': 'User created'
+			'message': 'Проект создан!'
 		})
 	return flask.jsonify({
 			'code': 1,
-			'message': 'У пользователя есть обязательные поля: name, lastname, password, email'
+			'message': 'У проекта есть обязательные поля: name, description, deadline, creaturedate'
 	})
 
 
-@app.route('/user/<int:user_id>', methods=['DELETE'])
-def delete_user(user_id: int):
-	global users
-	if len(users) >= user_id:
-		users.pop(user_id - 1)
+@app.route('/project/<int:project_id>', methods=['PUT'])
+def update_project(project_id: int):
+
+	data = request.json
+	if len(projects) >= project_id:
+		if 'name' in data and 'description' in data and 'deadline' in data and 'creaturedate' in data:
+			projects[project_id - 1] = data
+			return flask.jsonify({
+				'code': 0,
+				'message': 'Проект обновлён'
+			})
 		return flask.jsonify({
-			'code': 0,
-			'message': 'User deleted!'
+			'code': 1,
+			'message': 'У проекта есть обязательные поля: name, description, deadline, creaturedate'
 		})
 	return flask.jsonify({
 			'code': 3,
-			'message': 'User not found!'
+			'message': 'Проект не найден!'
+		})
+
+
+@app.route('/project/<int:project_id>', methods=['DELETE'])
+def delete_project(project_id: int):
+	global projects
+	if len(projects) >= project_id:
+		projects.pop(project_id - 1)
+		return flask.jsonify({
+			'code': 0,
+			'message': 'Проект удален'
+		})
+	return flask.jsonify({
+			'code': 3,
+			'message': 'Проект не найден'
 		})
 
 
